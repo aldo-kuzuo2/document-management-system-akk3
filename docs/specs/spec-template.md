@@ -73,6 +73,47 @@ Descreva em uma frase o que o sistema deve entregar.
 
 Liste as etapas na ordem de implementação (gerado no Passo 1).
 
-1. ...
-2. ...
-3. ...
+1. **Especificação**
+	- Consolidar requisitos funcionais e não funcionais, modelo de dados,
+	  contratos de API, decisões arquiteturais e critérios de aceite.
+	- Entregável: `docs/specs/dms-spec.md`.
+
+2. **Infraestrutura e configuração do backend**
+	- Configurar Express, `PORT`, diretório de armazenamento local e limite de
+	  upload por variáveis de ambiente.
+	- Manter o endpoint `GET /health`.
+
+3. **Repositórios**
+	- Implementar o armazenamento físico com `multer.diskStorage` em
+	  `backend/storage`.
+	- Implementar o repositório em memória dos metadados dos documentos.
+	- Gerar nomes internos seguros e evitar acesso arbitrário ao filesystem.
+
+4. **Serviços de negócio**
+	- Implementar upload, listagem por usuário e download.
+	- Validar existência do documento e propriedade por usuário.
+	- Tratar limpeza de arquivos quando o registro do metadado falhar.
+
+5. **Controllers e rotas**
+	- Publicar `POST /upload`, `GET /documents` e
+	  `GET /documents/:id/download`.
+	- Validar entrada HTTP, headers, multipart, parâmetros e códigos de erro.
+
+6. **Testes do backend**
+	- Cobrir health check, upload válido e inválido, listagem, download,
+	  documento inexistente e isolamento entre usuários.
+
+7. **Serviços do frontend**
+	- Implementar chamadas `fetch` para a API usando o prefixo `/api`.
+	- Converter respostas de erro em estados tratáveis pela interface.
+
+8. **Componentes e tela do frontend**
+	- Criar seleção e envio de arquivos, listagem de documentos e ação de
+	  download.
+	- Exibir estados de carregamento, sucesso, lista vazia e erro.
+
+9. **Integração e validação final**
+	- Validar o proxy do Vite, o fluxo completo entre frontend e backend, o
+	  build do frontend e a suíte de testes do backend.
+	- Confirmar que os arquivos continuam armazenados exclusivamente no
+	  filesystem local e que os metadados permanecem em memória.
